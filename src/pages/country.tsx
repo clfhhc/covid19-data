@@ -6,10 +6,13 @@ import DbComponent from '../features/db/DbTest';
 
 const IndexPage: NextPage<{ [key in string]?: string }> = () => (
   <div>
-    <ManifestHead title="github_pwa sql example" hrefCanonical="/db" />
+    <ManifestHead
+      title="github_pwa country sql example"
+      hrefCanonical="/country"
+    />
     <DbComponent />
-    <Link href="/index/country">
-      <a>index/country</a>
+    <Link href="/index/db">
+      <a>index/db</a>
     </Link>
   </div>
 );
