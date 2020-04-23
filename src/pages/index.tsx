@@ -11,13 +11,15 @@ export interface StaticProps {
   countries: Country[];
 }
 
+const defaultISO2 = 'US';
+
 const { selectEntities: selectCountries } = countryAdapter.getSelectors(
   (state: GlobalCountryState) => state.country || {}
 );
 
 const IndexPage: NextPage<StaticProps> = ({ countries }) => {
   const [currentIp, setIp] = useState('');
-  const [curerentISO2, setISO2] = useState('');
+  const [curerentISO2, setISO2] = useState(defaultISO2);
 
   useEffect(() => {
     const main = async () => {
@@ -29,7 +31,7 @@ const IndexPage: NextPage<StaticProps> = ({ countries }) => {
       const { data } = await axios.get(
         `https://api.kwelo.com/v1/network/ip-address/location/${ip}`
       );
-      setISO2(data.data?.geolocation?.country?.iso_code || '');
+      setISO2(data.data?.geolocation?.country?.iso_code || defaultISO2);
     };
 
     main();
