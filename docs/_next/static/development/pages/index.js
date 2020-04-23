@@ -11685,6 +11685,8 @@ var IndexPage = function IndexPage(_ref) {
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var main = function main() {
+      var _data$data, _data$data$geolocatio, _data$data$geolocatio2;
+
       var _await$axios$get, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function main$(_context) {
@@ -11693,14 +11695,15 @@ var IndexPage = function IndexPage(_ref) {
             case 0:
               setIp(ip);
               _context.next = 3;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("https://api.ip2country.info/ip?".concat(ip)));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("https://api.kwelo.com/v1/network/ip-address/location/".concat(ip)));
 
             case 3:
               _await$axios$get = _context.sent;
               data = _await$axios$get.data;
-              setISO2((data === null || data === void 0 ? void 0 : data.countryCode) || '');
+              console.log(data);
+              setISO2((data === null || data === void 0 ? void 0 : (_data$data = data.data) === null || _data$data === void 0 ? void 0 : (_data$data$geolocatio = _data$data.geolocation) === null || _data$data$geolocatio === void 0 ? void 0 : (_data$data$geolocatio2 = _data$data$geolocatio.country) === null || _data$data$geolocatio2 === void 0 ? void 0 : _data$data$geolocatio2.iso_code) || '');
 
-            case 6:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -11715,7 +11718,7 @@ var IndexPage = function IndexPage(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 41,
+      lineNumber: 44,
       columnNumber: 5
     }
   }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -11724,21 +11727,21 @@ var IndexPage = function IndexPage(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42,
+      lineNumber: 45,
       columnNumber: 7
     }
   }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 43,
+      lineNumber: 46,
       columnNumber: 7
     }
   }, "Your Ip: ".concat(currentIp)), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 44,
+      lineNumber: 47,
       columnNumber: 7
     }
   }, "Your country: ".concat((_countryObj$curerentI = (_countryObj$curerentI2 = countryObj[curerentISO2]) === null || _countryObj$curerentI2 === void 0 ? void 0 : _countryObj$curerentI2.Country) !== null && _countryObj$curerentI !== void 0 ? _countryObj$curerentI : '')), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -11746,7 +11749,7 @@ var IndexPage = function IndexPage(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 45,
+      lineNumber: 48,
       columnNumber: 7
     }
   }));

@@ -14706,10 +14706,12 @@ var App = function App(_ref) {
 };
 
 App.getInitialProps = function (_ref2) {
+  var _req$connection;
+
   var req = _ref2.ctx.req;
   return {
     appProps: {
-      ip: (req === null || req === void 0 ? void 0 : req.connection.remoteAddress) || ''
+      ip: (req === null || req === void 0 ? void 0 : (_req$connection = req.connection) === null || _req$connection === void 0 ? void 0 : _req$connection.remoteAddress) || ''
     }
   };
 };
