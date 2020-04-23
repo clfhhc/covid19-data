@@ -45,6 +45,7 @@ const IndexPage: NextPage<StaticProps & InitialProps, InitialProps> = ({
       <ManifestHead title={process.env.FOLDER} hrefCanonical="/" />
       <p>{`Your Ip: ${currentIp}`}</p>
       <p>{`Your country: ${countryObj[curerentISO2]?.Country ?? ''}`}</p>
+      <p>Powered by Kwelo.com and covid19api.com</p>
       <CountryDiv countries={countries} />
     </div>
   );
