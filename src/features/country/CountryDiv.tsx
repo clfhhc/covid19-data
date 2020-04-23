@@ -1,42 +1,43 @@
-import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-// import { css } from '@emotion/core';
-import { AppDispatch } from '../../stores';
-import { countryReceived } from './countrySlice';
-// import rem from '../../utils/style/rem';
-import DynamicStoreWrap, {
-  CallbackOnStore,
-} from '../../utils/redux/DynamicStoreWrap';
-import { reducerCombo1 } from '../../reducers/reducerCombo';
-import { Country } from './countryEntity';
+import React, { FC, useState, useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { GlobalCountryState } from './countrySlice';
+import countryAdapter from './countryEntity';
 
-interface Props {
-  countries: Country[];
-}
+const defaultISO2 = 'US';
 
-const CountryDiv: FC<Props> = ({ countries }) => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(countryReceived(countries));
-  }, [countries]);
-
-  return <div />;
-};
-
-const callbackOnMount: CallbackOnStore = async (store) =>
-  store.injectReducers(reducerCombo1);
-
-const callbackOnUnmount: CallbackOnStore = async (store) =>
-  store.removeReducers(['country']);
-
-const CountryDivWrap: FC<Props> = ({ countries }) => (
-  <DynamicStoreWrap
-    callbackOnMount={callbackOnMount}
-    callbackOnUnmount={callbackOnUnmount}
-  >
-    <CountryDiv countries={countries} />
-  </DynamicStoreWrap>
+const { selectEntities: selectCountries } = countryAdapter.getSelectors(
+  (state: GlobalCountryState) => state.country
 );
 
-export default CountryDivWrap;
+const CountryDiv: FC = () => {
+  const [currentIp, setIp] = useState('');
+  const [curerentISO2, setISO2] = useState(defaultISO2);
+
+  useEffect(() => {
+    const main = async () => {
+      const ipData = await axios.get(
+        'https://api.kwelo.com/v1/network/ip-address/my'
+      );
+      const ip = ipData.data || '';
+      setIp(ip);
+      const { data } = await axios.get(
+        `https://api.kwelo.com/v1/network/ip-address/location/${ip}`
+      );
+      setISO2(data.data?.geolocation?.country?.iso_code || defaultISO2);
+    };
+
+    main();
+  }, []);
+
+  const countryObj = useSelector(selectCountries) || {};
+  return (
+    <div>
+      <p>{`Your Ip: ${currentIp}`}</p>
+      <p>{`Your country: ${countryObj[curerentISO2]?.Country ?? ''}`}</p>
+      <p>Powered by Kwelo.com and covid19api.com</p>
+    </div>
+  );
+};
+
+export default CountryDiv;

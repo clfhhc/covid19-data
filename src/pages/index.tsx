@@ -1,53 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ManifestHead from '../features/head/ManifestHead';
-import countryAdapter, { Country } from '../features/country/countryEntity';
+import DynamicStoreWrap, {
+  CallbackOnStore,
+} from '../utils/redux/DynamicStoreWrap';
+import { Country } from '../features/country/countryEntity';
 import CountryDiv from '../features/country/CountryDiv';
-import { GlobalCountryState } from '../features/country/countrySlice';
+import { countryReceived } from '../features/country/countrySlice';
+import { reducerCombo1 } from '../reducers/reducerCombo';
 
 export interface StaticProps {
   countries: Country[];
 }
 
-const defaultISO2 = 'US';
+const callbackOnMount: CallbackOnStore = async (store) =>
+  store.injectReducers(reducerCombo1);
 
-const { selectEntities: selectCountries } = countryAdapter.getSelectors(
-  (state: GlobalCountryState) => state.country || {}
-);
+const callbackOnUnmount: CallbackOnStore = async (store) =>
+  store.removeReducers(['country']);
 
 const IndexPage: NextPage<StaticProps> = ({ countries }) => {
-  const [currentIp, setIp] = useState('');
-  const [curerentISO2, setISO2] = useState(defaultISO2);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    const main = async () => {
-      const ipData = await axios.get(
-        'https://api.kwelo.com/v1/network/ip-address/my'
-      );
-      const ip = ipData.data || '';
-      setIp(ip);
-      const { data } = await axios.get(
-        `https://api.kwelo.com/v1/network/ip-address/location/${ip}`
-      );
-      setISO2(data.data?.geolocation?.country?.iso_code || defaultISO2);
-    };
+    dispatch(countryReceived(countries));
+  }, [countries]);
 
-    main();
-  }, []);
-
-  const countryObj = useSelector(selectCountries) || {};
   return (
     <div>
       <ManifestHead title={process.env.FOLDER} hrefCanonical="/" />
-      <p>{`Your Ip: ${currentIp}`}</p>
-      <p>{`Your country: ${countryObj[curerentISO2]?.Country ?? ''}`}</p>
-      <p>Powered by Kwelo.com and covid19api.com</p>
-      <CountryDiv countries={countries} />
+      <CountryDiv />
     </div>
   );
 };
+
+const IndexPageWrap: FC<StaticProps> = ({ countries }) => (
+  <DynamicStoreWrap
+    callbackOnMount={callbackOnMount}
+    callbackOnUnmount={callbackOnUnmount}
+  >
+    <IndexPage countries={countries} />
+  </DynamicStoreWrap>
+);
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   const countries = (
@@ -63,4 +58,4 @@ export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   } as { props: StaticProps };
 };
 
-export default IndexPage;
+export default IndexPageWrap;
