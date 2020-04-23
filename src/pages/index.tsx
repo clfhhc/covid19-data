@@ -29,8 +29,11 @@ const IndexPage: NextPage<StaticProps & InitialProps, InitialProps> = ({
   useEffect(() => {
     const main = async () => {
       setIp(ip);
-      const { data } = await axios.get(`https://api.ip2country.info/ip?${ip}`);
-      setISO2(data?.countryCode || '');
+      const { data } = await axios.get(
+        `https://api.kwelo.com/v1/network/ip-address/location/${ip}`
+      );
+      console.log(data);
+      setISO2(data?.data?.geolocation?.country?.iso_code || '');
     };
 
     main();
