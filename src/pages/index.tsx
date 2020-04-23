@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import ManifestHead from '../features/head/ManifestHead';
-import { Country } from '../features/country/countryEntity';
+import countryAdapter, { Country } from '../features/country/countryEntity';
 import CountryDiv from '../features/country/CountryDiv';
+import { GlobalCountryState } from '../features/country/countrySlice';
 
-export interface Props {
+export interface StaticProps {
   countries: Country[];
 }
 
-const IndexPage: NextPage<Props> = ({ countries }) => {
+export interface InitialProps {
+  ip: string;
+}
+
+const { selectEntities: selectCountries } = countryAdapter.getSelectors(
+  (state: GlobalCountryState) => state.country || {}
+);
+
+const IndexPage: NextPage<StaticProps & InitialProps, InitialProps> = ({
+  countries,
+  ip,
+}) => {
+  const [currentIp, setIp] = useState('');
+  const [curerentISO2, setISO2] = useState('');
+
+  useEffect(() => {
+    const main = async () => {
+      setIp(ip);
+      const { data } = await axios.get(`https://api.ip2country.info/ip?${ip}`);
+      setISO2(data?.countryCode || '');
+    };
+
+    main();
+  }, [ip]);
+
+  const countryObj = useSelector(selectCountries) || {};
   return (
     <div>
       <ManifestHead title={process.env.FOLDER} hrefCanonical="/" />
+      <p>{`Your Ip: ${currentIp}`}</p>
+      <p>{`Your country: ${countryObj[curerentISO2]?.Country ?? ''}`}</p>
       <CountryDiv countries={countries} />
     </div>
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   const countries = (
     await axios.get('https://api.covid19api.com/countries').catch((err) => {
       console.log(err);
@@ -29,7 +58,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     props: {
       countries,
     },
-  } as { props: Props };
+  } as { props: StaticProps };
 };
 
 export default IndexPage;

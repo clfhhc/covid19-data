@@ -44,4 +44,10 @@ const App: NextComponentType<
   );
 };
 
+App.getInitialProps = ({ ctx: { req } }) => ({
+  appProps: {
+    ip: req?.connection?.remoteAddress || '',
+  },
+});
+
 export default withRedux({ makeStore, isServerSideRendering: false })(App);
