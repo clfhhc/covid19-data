@@ -2,21 +2,18 @@ import React from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import axios from 'axios';
 import ManifestHead from '../features/head/ManifestHead';
-import Link from '../features/link/Link';
-import { Country } from '../features/text/countryEntity';
+import { Country } from '../features/country/countryEntity';
+import CountryDiv from '../features/country/CountryDiv';
 
 export interface Props {
   countries: Country[];
 }
 
-const IndexPage: NextPage<Props> = ({ ...appProps }) => {
+const IndexPage: NextPage<Props> = ({ countries }) => {
   return (
     <div>
       <ManifestHead title={process.env.FOLDER} hrefCanonical="/" />
-      <p>{`Props from _app.tsx: ${JSON.stringify(appProps)}`}</p>
-      <Link href="/">
-        <a>index</a>
-      </Link>
+      <CountryDiv countries={countries} />
     </div>
   );
 };

@@ -11,3 +11,13 @@ const countrySlice = createSlice({
     },
   },
 });
+
+export default countrySlice.reducer;
+
+export type CountryState = ReturnType<typeof countrySlice['reducer']>;
+
+export interface GlobalCountryState {
+  country: CountryState;
+}
+
+export const { countryReceived } = countrySlice.actions;
