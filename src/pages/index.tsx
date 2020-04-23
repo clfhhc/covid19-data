@@ -11,33 +11,29 @@ export interface StaticProps {
   countries: Country[];
 }
 
-export interface InitialProps {
-  ip: string;
-}
-
 const { selectEntities: selectCountries } = countryAdapter.getSelectors(
   (state: GlobalCountryState) => state.country || {}
 );
 
-const IndexPage: NextPage<StaticProps & InitialProps, InitialProps> = ({
-  countries,
-  ip,
-}) => {
+const IndexPage: NextPage<StaticProps> = ({ countries }) => {
   const [currentIp, setIp] = useState('');
   const [curerentISO2, setISO2] = useState('');
 
   useEffect(() => {
     const main = async () => {
+      const ipData = await axios.get(
+        'https://api.kwelo.com/v1/network/ip-address/my'
+      );
+      const ip = ipData.data || '';
       setIp(ip);
       const { data } = await axios.get(
         `https://api.kwelo.com/v1/network/ip-address/location/${ip}`
       );
-      console.log(data);
-      setISO2(data?.data?.geolocation?.country?.iso_code || '');
+      setISO2(data.data?.geolocation?.country?.iso_code || '');
     };
 
     main();
-  }, [ip]);
+  }, []);
 
   const countryObj = useSelector(selectCountries) || {};
   return (

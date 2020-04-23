@@ -11672,8 +11672,7 @@ var _countryAdapter$getSe = _features_country_countryEntity__WEBPACK_IMPORTED_MO
 var IndexPage = function IndexPage(_ref) {
   var _countryObj$curerentI, _countryObj$curerentI2;
 
-  var countries = _ref.countries,
-      ip = _ref.ip;
+  var countries = _ref.countries;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
       currentIp = _useState[0],
@@ -11687,23 +11686,28 @@ var IndexPage = function IndexPage(_ref) {
     var main = function main() {
       var _data$data, _data$data$geolocatio, _data$data$geolocatio2;
 
-      var _await$axios$get, data;
+      var ipData, ip, _await$axios$get, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function main$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('https://api.kwelo.com/v1/network/ip-address/my'));
+
+            case 2:
+              ipData = _context.sent;
+              ip = ipData.data || '';
               setIp(ip);
-              _context.next = 3;
+              _context.next = 7;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("https://api.kwelo.com/v1/network/ip-address/location/".concat(ip)));
 
-            case 3:
+            case 7:
               _await$axios$get = _context.sent;
               data = _await$axios$get.data;
-              console.log(data);
-              setISO2((data === null || data === void 0 ? void 0 : (_data$data = data.data) === null || _data$data === void 0 ? void 0 : (_data$data$geolocatio = _data$data.geolocation) === null || _data$data$geolocatio === void 0 ? void 0 : (_data$data$geolocatio2 = _data$data$geolocatio.country) === null || _data$data$geolocatio2 === void 0 ? void 0 : _data$data$geolocatio2.iso_code) || '');
+              setISO2(((_data$data = data.data) === null || _data$data === void 0 ? void 0 : (_data$data$geolocatio = _data$data.geolocation) === null || _data$data$geolocatio === void 0 ? void 0 : (_data$data$geolocatio2 = _data$data$geolocatio.country) === null || _data$data$geolocatio2 === void 0 ? void 0 : _data$data$geolocatio2.iso_code) || '');
 
-            case 7:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -11712,13 +11716,13 @@ var IndexPage = function IndexPage(_ref) {
     };
 
     main();
-  }, [ip]);
+  }, []);
   var countryObj = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(selectCountries) || {};
   return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 44,
+      lineNumber: 40,
       columnNumber: 5
     }
   }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -11727,29 +11731,36 @@ var IndexPage = function IndexPage(_ref) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 45,
+      lineNumber: 41,
       columnNumber: 7
     }
   }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 46,
+      lineNumber: 42,
       columnNumber: 7
     }
   }, "Your Ip: ".concat(currentIp)), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 47,
+      lineNumber: 43,
       columnNumber: 7
     }
-  }, "Your country: ".concat((_countryObj$curerentI = (_countryObj$curerentI2 = countryObj[curerentISO2]) === null || _countryObj$curerentI2 === void 0 ? void 0 : _countryObj$curerentI2.Country) !== null && _countryObj$curerentI !== void 0 ? _countryObj$curerentI : '')), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, "Your country: ".concat((_countryObj$curerentI = (_countryObj$curerentI2 = countryObj[curerentISO2]) === null || _countryObj$curerentI2 === void 0 ? void 0 : _countryObj$curerentI2.Country) !== null && _countryObj$curerentI !== void 0 ? _countryObj$curerentI : '')), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44,
+      columnNumber: 7
+    }
+  }, "Powered by Kwelo.com and covid19api.com"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_6__["default"], {
     countries: countries,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 48,
+      lineNumber: 45,
       columnNumber: 7
     }
   }));

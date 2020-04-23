@@ -14705,17 +14705,6 @@ var App = function App(_ref) {
   })));
 };
 
-App.getInitialProps = function (_ref2) {
-  var _req$connection;
-
-  var req = _ref2.ctx.req;
-  return {
-    appProps: {
-      ip: (req === null || req === void 0 ? void 0 : (_req$connection = req.connection) === null || _req$connection === void 0 ? void 0 : _req$connection.remoteAddress) || ''
-    }
-  };
-};
-
 /* harmony default export */ __webpack_exports__["default"] = (Object(_utils_redux_withRedux__WEBPACK_IMPORTED_MODULE_5__["default"])({
   makeStore: _stores__WEBPACK_IMPORTED_MODULE_6__["default"],
   isServerSideRendering: false
