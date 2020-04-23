@@ -11257,11 +11257,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _countrySlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./countrySlice */ "./src/features/country/countrySlice.ts");
-/* harmony import */ var _utils_redux_DynamicStoreWrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/redux/DynamicStoreWrap */ "./src/utils/redux/DynamicStoreWrap.tsx");
-/* harmony import */ var _reducers_reducerCombo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers/reducerCombo */ "./src/reducers/reducerCombo.ts");
-/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _countryEntity__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./countryEntity */ "./src/features/country/countryEntity.ts");
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
 
 
 var _this = undefined,
@@ -11269,83 +11269,96 @@ var _this = undefined,
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
- // import { css } from '@emotion/core';
-
- // import rem from '../../utils/style/rem';
 
 
 
 
+var defaultISO2 = 'US';
 
-var CountryDiv = function CountryDiv(_ref) {
-  var countries = _ref.countries;
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+var _countryAdapter$getSe = _countryEntity__WEBPACK_IMPORTED_MODULE_4__["default"].getSelectors(function (state) {
+  return state.country;
+}),
+    selectCountries = _countryAdapter$getSe.selectEntities;
+
+var CountryDiv = function CountryDiv() {
+  var _countryObj$curerentI, _countryObj$curerentI2;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
+      currentIp = _useState[0],
+      setIp = _useState[1];
+
+  var _useState2 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(defaultISO2),
+      curerentISO2 = _useState2[0],
+      setISO2 = _useState2[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    dispatch(Object(_countrySlice__WEBPACK_IMPORTED_MODULE_3__["countryReceived"])(countries));
-  }, [countries]);
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_6__["jsx"])("div", {
+    var main = function main() {
+      var _data$data, _data$data$geolocatio, _data$data$geolocatio2;
+
+      var ipData, ip, _await$axios$get, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function main$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('https://api.kwelo.com/v1/network/ip-address/my'));
+
+            case 2:
+              ipData = _context.sent;
+              ip = ipData.data || '';
+              setIp(ip);
+              _context.next = 7;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("https://api.kwelo.com/v1/network/ip-address/location/".concat(ip)));
+
+            case 7:
+              _await$axios$get = _context.sent;
+              data = _await$axios$get.data;
+              setISO2(((_data$data = data.data) === null || _data$data === void 0 ? void 0 : (_data$data$geolocatio = _data$data.geolocation) === null || _data$data$geolocatio === void 0 ? void 0 : (_data$data$geolocatio2 = _data$data$geolocatio.country) === null || _data$data$geolocatio2 === void 0 ? void 0 : _data$data$geolocatio2.iso_code) || defaultISO2);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, null, null, Promise);
+    };
+
+    main();
+  }, []);
+  var countryObj = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(selectCountries) || {};
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_5__["jsx"])("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24,
-      columnNumber: 10
+      lineNumber: 35,
+      columnNumber: 5
     }
-  });
-};
-
-var callbackOnMount = function callbackOnMount(store) {
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function callbackOnMount$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          return _context.abrupt("return", store.injectReducers(_reducers_reducerCombo__WEBPACK_IMPORTED_MODULE_5__["reducerCombo1"]));
-
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, null, null, null, Promise);
-};
-
-var callbackOnUnmount = function callbackOnUnmount(store) {
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function callbackOnUnmount$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          return _context2.abrupt("return", store.removeReducers(['country']));
-
-        case 1:
-        case "end":
-          return _context2.stop();
-      }
-    }
-  }, null, null, null, Promise);
-};
-
-var CountryDivWrap = function CountryDivWrap(_ref2) {
-  var countries = _ref2.countries;
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_6__["jsx"])(_utils_redux_DynamicStoreWrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    callbackOnMount: callbackOnMount,
-    callbackOnUnmount: callbackOnUnmount,
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_5__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 3
+      lineNumber: 36,
+      columnNumber: 7
     }
-  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_6__["jsx"])(CountryDiv, {
-    countries: countries,
+  }, "Your Ip: ".concat(currentIp)), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_5__["jsx"])("p", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 37,
+      columnNumber: 7
+    }
+  }, "Your country: ".concat((_countryObj$curerentI = (_countryObj$curerentI2 = countryObj[curerentISO2]) === null || _countryObj$curerentI2 === void 0 ? void 0 : _countryObj$curerentI2.Country) !== null && _countryObj$curerentI !== void 0 ? _countryObj$curerentI : '')), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_5__["jsx"])("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 38,
-      columnNumber: 5
+      columnNumber: 7
     }
-  }));
+  }, "Powered by Kwelo.com and covid19api.com"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (CountryDivWrap);
+/* harmony default export */ __webpack_exports__["default"] = (CountryDiv);
 
 /***/ }),
 
@@ -11643,13 +11656,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../features/head/ManifestHead */ "./src/features/head/ManifestHead.tsx");
-/* harmony import */ var _features_country_countryEntity__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../features/country/countryEntity */ "./src/features/country/countryEntity.ts");
-/* harmony import */ var _features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../features/country/CountryDiv */ "./src/features/country/CountryDiv.tsx");
-/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../features/head/ManifestHead */ "./src/features/head/ManifestHead.tsx");
+/* harmony import */ var _utils_redux_DynamicStoreWrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/redux/DynamicStoreWrap */ "./src/utils/redux/DynamicStoreWrap.tsx");
+/* harmony import */ var _features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../features/country/CountryDiv */ "./src/features/country/CountryDiv.tsx");
+/* harmony import */ var _features_country_countrySlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../features/country/countrySlice */ "./src/features/country/countrySlice.ts");
+/* harmony import */ var _reducers_reducerCombo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/reducerCombo */ "./src/reducers/reducerCombo.ts");
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
 
 
 var _this = undefined,
@@ -11664,110 +11677,93 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
-var _countryAdapter$getSe = _features_country_countryEntity__WEBPACK_IMPORTED_MODULE_5__["default"].getSelectors(function (state) {
-  return state.country || {};
-}),
-    selectCountries = _countryAdapter$getSe.selectEntities;
+
+var callbackOnMount = function callbackOnMount(store) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function callbackOnMount$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          return _context.abrupt("return", store.injectReducers(_reducers_reducerCombo__WEBPACK_IMPORTED_MODULE_7__["reducerCombo1"]));
+
+        case 1:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, null, Promise);
+};
+
+var callbackOnUnmount = function callbackOnUnmount(store) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function callbackOnUnmount$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          return _context2.abrupt("return", store.removeReducers(['country']));
+
+        case 1:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, null, Promise);
+};
 
 var IndexPage = function IndexPage(_ref) {
-  var _countryObj$curerentI, _countryObj$curerentI2;
-
   var countries = _ref.countries;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
-      currentIp = _useState[0],
-      setIp = _useState[1];
-
-  var _useState2 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
-      curerentISO2 = _useState2[0],
-      setISO2 = _useState2[1];
-
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    var main = function main() {
-      var _data$data, _data$data$geolocatio, _data$data$geolocatio2;
-
-      var ipData, ip, _await$axios$get, data;
-
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function main$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('https://api.kwelo.com/v1/network/ip-address/my'));
-
-            case 2:
-              ipData = _context.sent;
-              ip = ipData.data || '';
-              setIp(ip);
-              _context.next = 7;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("https://api.kwelo.com/v1/network/ip-address/location/".concat(ip)));
-
-            case 7:
-              _await$axios$get = _context.sent;
-              data = _await$axios$get.data;
-              setISO2(((_data$data = data.data) === null || _data$data === void 0 ? void 0 : (_data$data$geolocatio = _data$data.geolocation) === null || _data$data$geolocatio === void 0 ? void 0 : (_data$data$geolocatio2 = _data$data$geolocatio.country) === null || _data$data$geolocatio2 === void 0 ? void 0 : _data$data$geolocatio2.iso_code) || '');
-
-            case 10:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, null, null, null, Promise);
-    };
-
-    main();
-  }, []);
-  var countryObj = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(selectCountries) || {};
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("div", {
+    dispatch(Object(_features_country_countrySlice__WEBPACK_IMPORTED_MODULE_6__["countryReceived"])(countries));
+  }, [countries]);
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__["jsx"])("div", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 40,
+      lineNumber: 31,
       columnNumber: 5
     }
-  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__["jsx"])(_features_head_ManifestHead__WEBPACK_IMPORTED_MODULE_3__["default"], {
     title: "",
     hrefCanonical: "/",
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 41,
+      lineNumber: 32,
       columnNumber: 7
     }
-  }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
+  }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__["jsx"])(_features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_5__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42,
-      columnNumber: 7
-    }
-  }, "Your Ip: ".concat(currentIp)), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 43,
-      columnNumber: 7
-    }
-  }, "Your country: ".concat((_countryObj$curerentI = (_countryObj$curerentI2 = countryObj[curerentISO2]) === null || _countryObj$curerentI2 === void 0 ? void 0 : _countryObj$curerentI2.Country) !== null && _countryObj$curerentI !== void 0 ? _countryObj$curerentI : '')), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("p", {
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 44,
-      columnNumber: 7
-    }
-  }, "Powered by Kwelo.com and covid19api.com"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_features_country_CountryDiv__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    countries: countries,
-    __self: _this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 45,
+      lineNumber: 33,
       columnNumber: 7
     }
   }));
 };
 
+var IndexPageWrap = function IndexPageWrap(_ref2) {
+  var countries = _ref2.countries;
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__["jsx"])(_utils_redux_DynamicStoreWrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    callbackOnMount: callbackOnMount,
+    callbackOnUnmount: callbackOnUnmount,
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39,
+      columnNumber: 3
+    }
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__["jsx"])(IndexPage, {
+    countries: countries,
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 43,
+      columnNumber: 5
+    }
+  }));
+};
+
 var __N_SSG = true;
-/* harmony default export */ __webpack_exports__["default"] = (IndexPage);
+/* harmony default export */ __webpack_exports__["default"] = (IndexPageWrap);
 
 /***/ }),
 
