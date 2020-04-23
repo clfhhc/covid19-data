@@ -1,17 +1,16 @@
 import { connectDb } from '../connection/connection';
-import { Hello } from '../entities/Hello';
+import { Country } from '../entities/Country';
 
 const main = async () => {
   const connection = await connectDb({});
   await connection.synchronize(false);
-  const hello = new Hello();
-  hello.a = 10;
-  hello.b = 'Hello World';
+  const country = new Country();
+  country.Country = 'China';
+  country.ISO2 = 'cn';
+  country.Slug = 'china';
 
-  const helloRepository = connection.getRepository(Hello);
-  await helloRepository.save(hello);
-
-  return 'yes';
+  const countryRepository = connection.getRepository(Country);
+  await countryRepository.save(country);
 };
 
 export default main;

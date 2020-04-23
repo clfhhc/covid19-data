@@ -3,7 +3,7 @@ import test from '../../sql/test';
 import { createDbUrl, loadDbFromFile } from '../../sql/connection/connection';
 import readAsArrayBuffer from '../../utils/common/readAsArrayBuffer';
 import instanceOfArrayBuffer from '../../utils/common/instanceOfArrayBuffer';
-import Hello from '../../sql/entities/Hello';
+import Country from '../../sql/entities/Country';
 
 const DbComponent: FC = () => {
   const [dbUrl, setDbUrl] = useState('');
@@ -22,8 +22,8 @@ const DbComponent: FC = () => {
       }
       const uInt8Array = new Uint8Array(dbBuffer);
       const connection = await loadDbFromFile({ database: uInt8Array });
-      const helloRepository = connection.getRepository(Hello);
-      const allRecord = await helloRepository.find();
+      const countryRepository = connection.getRepository(Country);
+      const allRecord = await countryRepository.find();
       console.log(JSON.stringify(allRecord));
     }
   };

@@ -44,8 +44,4 @@ const App: NextComponentType<
   );
 };
 
-App.getInitialProps = async () => {
-  return { appProps: { appInitialProcessEnv: process.env.TEST_APP_PROP } };
-};
-
-export default withRedux({ makeStore })(App);
+export default withRedux({ makeStore, isServerSideRendering: false })(App);

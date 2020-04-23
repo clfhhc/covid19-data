@@ -4,11 +4,11 @@ import {
   getConnectionManager,
   EntitySchema,
 } from 'typeorm/browser';
-import { Hello } from '../entities/Hello';
+import { Country } from '../entities/Country';
 
 const isProd = process.env.ENV === 'production';
 const defaultConnectionName = 'sqlJsDb';
-export const defaultEntities = [Hello];
+export const defaultEntities = [Country];
 
 // either copy the file sql-wasm.wasm from sql.js/dist
 // or define locateFile function to retrieve it from a cdn
