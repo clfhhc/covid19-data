@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { GlobalCountryState } from './countrySlice';
 import countryAdapter from './countryEntity';
+import CountryDb from './CountryDb';
 
 const defaultISO2 = 'US';
 
@@ -36,6 +37,7 @@ const CountryDiv: FC = () => {
       <p>{`Your Ip: ${currentIp}`}</p>
       <p>{`Your country: ${countryObj[curerentISO2]?.Country ?? ''}`}</p>
       <p>Powered by Kwelo.com and covid19api.com</p>
+      <CountryDb />
     </div>
   );
 };

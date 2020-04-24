@@ -31,6 +31,7 @@ const App: NextComponentType<
 > = ({ Component, pageProps, appProps, store }) => {
   useEffect(() => {
     window.localforage = localforage;
+
     return () => {
       window.localforage = undefined;
     };
