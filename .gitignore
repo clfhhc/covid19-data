@@ -7,6 +7,6 @@ public/build/*
 .env
 out/
 public/workbox-*.js
-public/sw.js
-public/work-*.js
+public/sw.js*
+public/worker-*.js*
 public/manifest.json
